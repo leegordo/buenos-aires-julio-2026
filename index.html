@@ -208,6 +208,46 @@
   ::-webkit-scrollbar { width: 6px; }
   ::-webkit-scrollbar-track { background: #f0ebe0; }
   ::-webkit-scrollbar-thumb { background: #c8a870; border-radius: 3px; }
+
+  /* ── Checklist (Viaje) ── */
+  .check-section {
+    background: #fff; border: 1px solid #e8dcc8;
+    border-radius: 10px; padding: 18px 20px;
+    margin-bottom: 16px;
+  }
+  .check-section h3 {
+    font-family: 'Trebuchet MS', sans-serif;
+    font-size: 12px; letter-spacing: 2px;
+    text-transform: uppercase; color: #d4a96a;
+    margin-bottom: 4px; font-weight: bold;
+  }
+  .check-section .check-when {
+    font-size: 13px; color: #a08060; font-style: italic;
+    margin-bottom: 14px;
+  }
+  .check-list { list-style: none; padding: 0; margin: 0; }
+  .check-list li {
+    display: flex; align-items: flex-start; gap: 10px;
+    padding: 7px 0; font-size: 14px; line-height: 1.55;
+    color: #3d1a00; cursor: pointer;
+    border-bottom: 1px dashed #f0e8d8;
+  }
+  .check-list li:last-child { border-bottom: none; }
+  .check-list li::before {
+    content: ''; flex-shrink: 0;
+    width: 18px; height: 18px;
+    border: 2px solid #c8a870; border-radius: 4px;
+    margin-top: 1px;
+    transition: background 0.15s;
+  }
+  .check-list li.done { color: #a08060; text-decoration: line-through; }
+  .check-list li.done::before {
+    background: #d4a96a;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%231a0a00'%3E%3Cpath d='M13.5 4.5l-7 7-3-3 1-1 2 2 6-6z'/%3E%3C/svg%3E");
+    background-size: contain;
+  }
+  .check-list li strong { color: #3d1a00; }
+  .check-list li em { color: #6b4a20; font-style: normal; font-size: 13px; }
 </style>
 </head>
 <body>
@@ -226,6 +266,7 @@
 </div>
 
 <div class="tab-bar">
+  <button class="tab-btn" onclick="showTab('viaje', this)">✈️ Día de Viaje</button>
   <button class="tab-btn active" onclick="showTab('day1', this)">Dom 5 Jul</button>
   <button class="tab-btn" onclick="showTab('day2', this)">Lun 6 Jul</button>
   <button class="tab-btn" onclick="showTab('day3', this)">Mar 7 Jul</button>
@@ -238,38 +279,152 @@
   <button class="tab-btn" onclick="showTab('tips', this)">Consejos</button>
 </div>
 
+<!-- ═══════════════ DÍA DE VIAJE ═══════════════ -->
+<div id="viaje" class="tab-content">
+  <div class="day-header">
+    <div class="day-num">Domingo 5 de julio</div>
+    <div class="day-title">Checklist: Día de viaje MEX → EZE</div>
+    <div class="day-badge">✈️ 9h 15m</div>
+  </div>
+  <div class="tip-box">
+    <strong>Aeroméxico AM 30 · Premium Economy · Asientos 14A / 14B</strong><br>
+    MEX T2 sale 9:10 AM → EZE llega 21:25 (hora local de BA, 1h adelantada de MX).<br>
+    Tocá cada ítem para tacharlo (se guarda solo en este dispositivo).
+  </div>
+
+  <div class="check-section">
+    <h3>① La noche anterior</h3>
+    <div class="check-when">Sábado 4 de julio · CDMX</div>
+    <ul class="check-list">
+      <li>Hacer <strong>web check-in en Aeroméxico</strong> (24h antes — confirmar 14A y 14B)</li>
+      <li>Descargar pases de abordar al wallet del celular <em>+ tomar foto/imprimir backup</em></li>
+      <li>Cargar al 100% celular, audífonos, batería externa, Kindle</li>
+      <li>Descargar <strong>PedidosYa</strong>, <strong>Cabify</strong>, <strong>Uber</strong> (con cuenta lista)</li>
+      <li>Descargar offline: <strong>Google Maps de Buenos Aires</strong>, Spotify playlists, 1–2 películas</li>
+      <li>Capturas de pantalla: dirección del Airbnb, código de check-in, pase de abordar</li>
+      <li>Avisar al host del Airbnb la hora estimada de llegada (~23:30)</li>
+      <li>Empacar en la <strong>carry-on</strong>: medicamentos, pasaportes, cargadores, muda de ropa, snacks veganos, antifaz, audífonos</li>
+      <li>Confirmar que pasaportes <strong>no expiran antes de enero 2027</strong> (regla 6 meses)</li>
+      <li>Dejar lista la ropa para mañana: capas (frío en BA al aterrizar, 5–10°C)</li>
+      <li>Dormir temprano — mañana es largo</li>
+    </ul>
+  </div>
+
+  <div class="check-section">
+    <h3>② Mañana del vuelo</h3>
+    <div class="check-when">Domingo 5 de julio · 5:30 AM CDMX</div>
+    <ul class="check-list">
+      <li>Botella de agua vacía a la mano (rellenar después de seguridad)</li>
+      <li>Desayuno fuerte en casa o camino al aeropuerto — vuelo es largo</li>
+      <li>Salir hacia <strong>MEX T2</strong> a las 6:00 AM (3 horas de margen)</li>
+      <li>Pasaportes + tarjetas de embarque en el bolsillo, no en la mochila</li>
+      <li>Efectivo: tener algo de USD por si necesitan en EZE (kiosco, propina)</li>
+    </ul>
+  </div>
+
+  <div class="check-section">
+    <h3>③ En el aeropuerto MEX T2</h3>
+    <div class="check-when">~6:30 AM – 9:10 AM</div>
+    <ul class="check-list">
+      <li>Check-in / drop de maletas en mostrador Aeroméxico</li>
+      <li>Migración de salida (sello de salida MX)</li>
+      <li>Seguridad — sacar laptop y líquidos</li>
+      <li>Rellenar botellas en fuente después de seguridad</li>
+      <li>Comprar snacks veganos para el vuelo (frutos secos, fruta, barritas)</li>
+      <li>Última parada al baño antes de abordar</li>
+      <li>Llegar a puerta de embarque ~8:30 AM</li>
+    </ul>
+  </div>
+
+  <div class="check-section">
+    <h3>④ Durante el vuelo</h3>
+    <div class="check-when">9:10 AM – 21:25 · 9h 15m de vuelo</div>
+    <ul class="check-list">
+      <li>Confirmar comida vegana con el sobrecargo apenas suban (Premium Economy suele tener opción VGML pero conviene pedir reconfirmación)</li>
+      <li>Tomar agua cada hora — la altitud deshidrata</li>
+      <li>Pararse y estirar cada 2 horas (riesgo de coágulos en vuelos largos)</li>
+      <li>Antifaz + audífonos para dormir un rato — sin culpa</li>
+      <li>Cargar celular en el puerto USB del asiento</li>
+      <li>Lavarse cara / cepillarse dientes una hora antes de aterrizar (kit en la carry-on)</li>
+      <li>Llenar <strong>tarjeta de migración argentina</strong> si la reparten a bordo</li>
+      <li>Cambiar la hora del celular a BA (+1h vs CDMX) antes de aterrizar</li>
+    </ul>
+  </div>
+
+  <div class="check-section">
+    <h3>⑤ Aterrizaje en EZE</h3>
+    <div class="check-when">21:25 hora local · Ezeiza T-A</div>
+    <ul class="check-list">
+      <li>Conectar al <strong>WiFi gratis del aeropuerto</strong> antes de salir de la zona segura</li>
+      <li>Migraciones argentina — pasaporte + sello de entrada (sin visa para MX y US)</li>
+      <li>Retiro de equipaje en cinta (revisar etiquetas: <strong>EZE</strong>)</li>
+      <li>Aduana — declarar electrónicos nuevos / lo de valor</li>
+      <li>NO cambiar dólares en el aeropuerto (tasa pésima) — usar cajero solo si necesario</li>
+      <li>Pedir Uber/Cabify desde el <strong>punto designado para apps</strong> (señalizado, NO subirse al primer auto)</li>
+      <li>Confirmar matrícula y nombre del conductor antes de subir</li>
+      <li>Mandar a familia: "Llegamos a BA, en camino al Airbnb" 💚</li>
+    </ul>
+  </div>
+
+  <div class="check-section">
+    <h3>⑥ Llegada al Airbnb</h3>
+    <div class="check-when">~23:00 – 23:30 · Palermo</div>
+    <ul class="check-list">
+      <li>Check-in con el host (código o entrega de llaves)</li>
+      <li>Conectar al wifi del depto</li>
+      <li>Localizar calefacción / termostato (julio en BA = invierno real)</li>
+      <li>Cargar todos los dispositivos</li>
+      <li>Tomar agua + comer algo liviano (delivery por <strong>PedidosYa</strong> hasta las 2 AM)</li>
+      <li>Poner alarma <strong>SUAVE</strong> para mañana (sin agenda hasta las 10 AM)</li>
+      <li>Dormir 💤 — mañana arranca el MALBA</li>
+    </ul>
+  </div>
+
+  <div class="tip-box">
+    💚 <strong>Recordatorio:</strong> el día va a ser largo y eso está bien. No hay nada planeado para esta noche más que llegar bien. Si algo se atrasa, no afecta nada del itinerario. <em>Buen viaje, mi amor.</em>
+  </div>
+</div>
+
 <!-- ═══════════════ DÍA 1 ═══════════════ -->
 <div id="day1" class="tab-content active">
   <div class="day-header">
     <div class="day-num">Día 1 · Domingo</div>
-    <div class="day-title">Llegada &amp; San Telmo</div>
+    <div class="day-title">Llegada nocturna a Palermo</div>
   </div>
   <div class="tip-box">
-    ☀️ El domingo es ideal para llegar: la ciudad va más despacio, las ferias están en su mejor momento, y la Plaza Dorrego en San Telmo tiene tango callejero toda la tarde. La mejor energía para comenzar el viaje.
+    ✈️ <strong>Aterrizan en Ezeiza a las 21:25</strong> después de 9h 15m de vuelo desde México. La noche entera es para llegar al Airbnb sin estrés, no para hacer turismo. Mañana arranca de verdad. <em>Nota: la feria del domingo en San Telmo la pasamos esta vez — la cambiamos por la feria de Plaza Cortázar el sábado.</em>
   </div>
   <div class="timeline">
     <div class="block">
-      <div class="block-time">Mañana</div>
+      <div class="block-time">21:25</div>
       <div class="block-body">
-        <div class="block-name">Instalarse en Palermo</div>
-        <div class="block-desc">Dejar las valijas y hacer la primera caminata por el barrio: las calles adoquinadas de <strong>Palermo Soho</strong>, los murales de Thames y Gorriti. Tomar un café cortado y medialunas (la mayoría son veganas — conviene confirmar) en algún bar de esquina.</div>
+        <div class="block-name">Aterrizaje en EZE</div>
+        <div class="block-desc">Migraciones, equipaje, aduana. Calcular <strong>45–75 minutos</strong> para salir de la zona de arribos a esa hora de la noche. Conectar al WiFi del aeropuerto antes de buscar el Uber. Pasar por el cajero ATM en la terminal o esperar — la primera extracción siempre tiene comisión alta. (Ver pestaña <strong>Viaje</strong> para checklist completo.)</div>
+        <div><span class="tag tag-alert">Llegada tarde</span></div>
+      </div>
+    </div>
+    <div class="block">
+      <div class="block-time">22:30</div>
+      <div class="block-body">
+        <div class="block-name">Traslado a Palermo</div>
+        <div class="block-desc"><strong>Uber o Cabify</strong> desde el punto designado del aeropuerto (NO taxis sin marca de la calle — los <em>truchos</em> abundan en EZE). Pickup point: salir de la terminal y caminar al sector designado para apps (señalizado). Alternativa: <strong>Tienda León</strong> con shuttle reservado de antemano (~USD 25 c/u, sale del nivel de arribos). Duración del viaje: <strong>45–60 min</strong> según tráfico. Costo en Uber: <strong>USD 25–40</strong>.</div>
+        <div><span class="tag tag-culture">Uber/Cabify</span><span class="tag tag-alert">Evitar taxis truchos</span></div>
+      </div>
+    </div>
+    <div class="block">
+      <div class="block-time">23:30</div>
+      <div class="block-body">
+        <div class="block-name">Check-in al Airbnb</div>
+        <div class="block-desc">Llegada al Airbnb. Confirmar el wifi, ubicar el termostato (julio es invierno — vas a querer calefacción), mandar mensaje al host de que llegaron bien. Avisar a la familia en MX y a Lance también.</div>
         <div><span class="tag tag-park">Palermo</span></div>
       </div>
     </div>
     <div class="block">
-      <div class="block-time">Tarde</div>
+      <div class="block-time">00:00+</div>
       <div class="block-body">
-        <div class="block-name">Feria de San Telmo + Plaza Dorrego</div>
-        <div class="block-desc">Uber o Cabify a San Telmo (no caminar por esa ruta — pasa por Constitución). La feria de antigüedades sobre la <strong>Calle Defensa</strong> funciona toda la tarde del domingo. Después, una parada en la <strong>Plaza Dorrego</strong> para el tango callejero espontáneo — acá está lo auténtico. Los bailarines actúan a la gorra; si tienen ganas, se suman.</div>
-        <div><span class="tag tag-tango">Tango callejero</span><span class="tag tag-culture">Feria</span></div>
-      </div>
-    </div>
-    <div class="block">
-      <div class="block-time">Noche</div>
-      <div class="block-body">
-        <div class="block-name">Cena: Sacro</div>
-        <div class="block-desc"><strong>Sacro</strong> (Palermo Hollywood) es probablemente el mejor restaurante vegano gourmet de Buenos Aires. Empanadas de carbón activado, gnudi de ricotta de almendra, bao de jackfruit. Conviene reservar con anticipación — se llena incluso en julio.</div>
-        <div><span class="tag tag-food">Vegano · Gourmet</span></div>
+        <div class="block-name">Picada nocturna (opcional) + dormir</div>
+        <div class="block-desc">Si quedó hambre: <strong>PedidosYa</strong> (la app de delivery argentina — descargar antes del vuelo) tiene varios lugares veganos en Palermo que entregan hasta las 2 AM. O bajar a un <em>kiosco 24h</em> por galletitas, fruta y agua para mañana. <strong>A dormir</strong> — el cambio horario MX→BA es solo 1 hora (BA va adelantada), pero el día fue largo y mañana arranca el MALBA.</div>
+        <div><span class="tag tag-food">Delivery vegano</span></div>
       </div>
     </div>
   </div>
@@ -729,6 +884,23 @@ function showTab(id, btn) {
   document.getElementById(id).classList.add('active');
   btn.classList.add('active');
 }
+
+// Checklist: click to toggle, persists in localStorage
+(function() {
+  const KEY = 'ba_viaje_checklist_v1';
+  let state = {};
+  try { state = JSON.parse(localStorage.getItem(KEY) || '{}'); } catch(e) { state = {}; }
+  const items = document.querySelectorAll('#viaje .check-list li');
+  items.forEach((li, i) => {
+    const id = 'c' + i;
+    if (state[id]) li.classList.add('done');
+    li.addEventListener('click', () => {
+      li.classList.toggle('done');
+      state[id] = li.classList.contains('done');
+      try { localStorage.setItem(KEY, JSON.stringify(state)); } catch(e) {}
+    });
+  });
+})();
 </script>
 </body>
 </html>
