@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Buenos Aires · 5–11 de julio, 2026</title>
+<style>
+  :root { color-scheme: light; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Georgia', serif;
+    background: #faf8f4;
+    color: #2c2416;
+    min-height: 100vh;
+  }
+
+  /* ── Encabezado ── */
+  .hero {
+    background: linear-gradient(135deg, #1a0a00 0%, #3d1a00 40%, #6b2d0a 70%, #8b4513 100%);
+    color: #f5e6c8;
+    padding: 40px 32px 36px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  }
+  .hero-inner { position: relative; z-index: 1; max-width: 760px; }
+  .hero-eyebrow {
+    font-family: 'Trebuchet MS', sans-serif;
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #d4a96a;
+    margin-bottom: 10px;
+  }
+  .hero h1 {
+    font-size: 36px;
+    font-weight: normal;
+    line-height: 1.15;
+    color: #f5e6c8;
+    margin-bottom: 8px;
+  }
+  .hero h1 em { font-style: italic; color: #d4a96a; }
+  .hero-sub {
+    font-family: 'Trebuchet MS', sans-serif;
+    font-size: 14px;
+    color: #c8b08a;
+    margin-top: 12px;
+    display: flex; gap: 20px; flex-wrap: wrap;
+  }
+  .hero-sub span { display: flex; align-items: center; gap: 5px; }
+  .hero-sub span::before { content: '·'; color: #d4a96a; }
+  .hero-sub span:first-child::before { content: ''; }
+
+  /* ── Pestañas ── */
+  .tab-bar {
+    background: #2c2416;
+    display: flex; overflow-x: auto;
+    padding: 0 16px;
+    gap: 2px;
+    scrollbar-width: none;
+  }
+  .tab-bar::-webkit-scrollbar { display: none; }
+  .tab-btn {
+    background: none; border: none;
+    color: #a08060; cursor: pointer;
+    font-family: 'Trebuchet MS', sans-serif;
+    font-size: 12px; letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 14px 16px 12px;
+    white-space: nowrap;
+    border-bottom: 3px solid transparent;
+    transition: all 0.2s;
+  }
+  .tab-btn:hover { color: #f5e6c8; }
+  .tab-btn.active { color: #f5e6c8; border-bottom-color: #d4a96a; }
+
+  /* ── Contenido ── */
+  .tab-content { display: none; padding: 28px 24px 40px; max-width: 780px; margin: 0 auto; }
+  .tab-content.active { display: block; }
+
+  /* ── Encabezado de día ── */
+  .day-header {
+    display: flex; align-items: baseline; gap: 12px;
+    margin-bottom: 22px; padding-bottom: 14px;
+    border-bottom: 2px solid #d4a96a;
+  }
+  .day-num {
+    font-family: 'Trebuchet MS', sans-serif;
+    font-size: 11px; letter-spacing: 3px;
+    text-transform: uppercase; color: #d4a96a;
+  }
+  .day-title { font-size: 26px; font-weight: normal; color: #2c2416; }
+  .day-badge {
+    font-family: 'Trebuchet MS', sans-serif;
+    font-size: 11px; padding: 3px 10px;
+    background: #d4a96a; color: #1a0a00;
+    border-radius: 20px; font-weight: bold;
+    letter-spacing: 1px;
+  }
+
+  /* ── Línea de tiempo ── */
+  .timeline { display: flex; flex-direction: column; gap: 16px; }
+  .block {
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    gap: 0 16px;
+  }
+  .block-time {
+    font-family: 'Trebuchet MS', sans-serif;
+    font-size: 11px; letter-spacing: 1px;
+    color: #a08060; text-transform: uppercase;
+    padding-top: 3px; text-align: right;
+    border-right: 2px solid #e8dcc8;
+    padding-right: 12px;
+  }
+  .block-body {
+    padding-bottom: 16px;
+    border-bottom: 1px solid #ece6d8;
+  }
+  .block:last-child .block-body { border-bottom: none; }
+  .block-name {
+    font-size: 16px; font-weight: bold;
+    color: #3d1a00; margin-bottom: 4px;
+  }
+  .block-desc {
+    font-size: 14px; line-height: 1.6;
+    color: #5a4030;
+  }
+  .tag {
+    display: inline-block;
+    font-family: 'Trebuchet MS', sans-serif;
+    font-size: 10px; letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 2px 8px; border-radius: 3px;
+    margin: 4px 4px 0 0;
+    font-weight: bold;
+  }
+  .tag-food    { background: #e8f4e8; color: #2a6a2a; border: 1px solid #b8d8b8; }
+  .tag-culture { background: #e8eef8; color: #1a3a6a; border: 1px solid #b8c8e8; }
+  .tag-tango   { background: #fce8e8; color: #6a1a1a; border: 1px solid #e8b8b8; }
+  .tag-books   { background: #f8f0e8; color: #6a4a1a; border: 1px solid #e0c898; }
+  .tag-park    { background: #e8f6ee; color: #1a5a3a; border: 1px solid #a8d8bc; }
+  .tag-alert   { background: #fff8e0; color: #7a5a00; border: 1px solid #e0c840; }
+
+  /* ── Cajas de consejo ── */
+  .tip-box {
+    background: #fff8e0; border-left: 4px solid #d4a96a;
+    border-radius: 0 8px 8px 0;
+    padding: 12px 16px; margin: 16px 0;
+    font-size: 13px; line-height: 1.6; color: #5a4010;
+  }
+  .tip-box strong { color: #3d1a00; }
+
+  /* ── Guía de comida ── */
+  .food-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 14px; margin-top: 4px; }
+  .food-card {
+    background: #fff;
+    border: 1px solid #e8dcc8;
+    border-radius: 10px;
+    padding: 16px;
+    transition: box-shadow 0.2s;
+  }
+  .food-card:hover { box-shadow: 0 4px 16px rgba(61,26,0,0.10); }
+  .food-card-name { font-size: 15px; font-weight: bold; color: #3d1a00; margin-bottom: 4px; }
+  .food-card-zone { font-family: 'Trebuchet MS', sans-serif; font-size: 11px; color: #a08060; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 6px; }
+  .food-card-desc { font-size: 13px; color: #5a4030; line-height: 1.55; }
+
+  /* ── Tabla de tango ── */
+  .tango-table { width: 100%; border-collapse: collapse; margin-top: 8px; font-size: 14px; }
+  .tango-table th {
+    font-family: 'Trebuchet MS', sans-serif; font-size: 11px;
+    letter-spacing: 2px; text-transform: uppercase;
+    color: #a08060; text-align: left;
+    padding: 8px 10px; border-bottom: 2px solid #d4a96a;
+  }
+  .tango-table td {
+    padding: 10px 10px; border-bottom: 1px solid #ece6d8;
+    vertical-align: top; color: #4a3020;
+  }
+  .tango-table tr:last-child td { border-bottom: none; }
+  .tango-table tr:hover td { background: #fdf8f0; }
+  .venue-name { font-weight: bold; color: #3d1a00; }
+
+  /* ── Títulos de sección ── */
+  .section-title {
+    font-family: 'Trebuchet MS', sans-serif;
+    font-size: 11px; letter-spacing: 3px;
+    text-transform: uppercase; color: #d4a96a;
+    margin: 28px 0 14px;
+  }
+  .section-title:first-child { margin-top: 0; }
+
+  /* ── Consejos prácticos ── */
+  .tips-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 12px; }
+  .tips-card {
+    background: #fff; border: 1px solid #e8dcc8; border-radius: 10px;
+    padding: 16px;
+  }
+  .tips-card-icon { font-size: 22px; margin-bottom: 8px; }
+  .tips-card-title { font-size: 14px; font-weight: bold; color: #3d1a00; margin-bottom: 6px; }
+  .tips-card-text { font-size: 13px; color: #5a4030; line-height: 1.6; }
+
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: #f0ebe0; }
+  ::-webkit-scrollbar-thumb { background: #c8a870; border-radius: 3px; }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-eyebrow">Itinerario de viaje · Buenos Aires</div>
+    <h1>Siete días en la <em>ciudad porteña</em></h1>
+    <div class="hero-sub">
+      <span>5–11 de julio, 2026</span>
+      <span>Base: Palermo</span>
+      <span>Veganos · Cultura · Tango · Libros</span>
+      <span>🌡 5–15°C · Invierno austral</span>
+    </div>
+  </div>
+</div>
+
+<div class="tab-bar">
+  <button class="tab-btn active" onclick="showTab('day1', this)">Dom 5 Jul</button>
+  <button class="tab-btn" onclick="showTab('day2', this)">Lun 6 Jul</button>
+  <button class="tab-btn" onclick="showTab('day3', this)">Mar 7 Jul</button>
+  <button class="tab-btn" onclick="showTab('day4', this)">Mié 8 Jul</button>
+  <button class="tab-btn" onclick="showTab('day5', this)">Jue 9 Jul 🇦🇷</button>
+  <button class="tab-btn" onclick="showTab('day6', this)">Vie 10 Jul</button>
+  <button class="tab-btn" onclick="showTab('day7', this)">Sáb 11 Jul</button>
+  <button class="tab-btn" onclick="showTab('food', this)">Comida Vegana</button>
+  <button class="tab-btn" onclick="showTab('tango', this)">Guía de Tango</button>
+  <button class="tab-btn" onclick="showTab('tips', this)">Consejos</button>
+</div>
+
+<!-- ═══════════════ DÍA 1 ═══════════════ -->
+<div id="day1" class="tab-content active">
+  <div class="day-header">
+    <div class="day-num">Día 1 · Domingo</div>
+    <div class="day-title">Llegada &amp; San Telmo</div>
+  </div>
+  <div class="tip-box">
+    ☀️ El domingo es ideal para llegar: la ciudad va más despacio, las ferias están en su mejor momento, y la Plaza Dorrego en San Telmo tiene tango callejero toda la tarde. La mejor energía para comenzar el viaje.
+  </div>
+  <div class="timeline">
+    <div class="block">
+      <div class="block-time">Mañana</div>
+      <div class="block-body">
+        <div class="block-name">Instalarse en Palermo</div>
+        <div class="block-desc">Dejar las valijas y hacer la primera caminata por el barrio: las calles adoquinadas de <strong>Palermo Soho</strong>, los murales de Thames y Gorriti. Tomar un café cortado y medialunas (la mayoría son veganas — conviene confirmar) en algún bar de esquina.</div>
+        <div><span class="tag tag-park">Palermo</span></div>
+      </div>
+    </div>
+    <div class="block">
+      <div class="block-time">Tarde</div>
+      <div class="block-body">
+        <div class="block-name">Feria de San Telmo + Plaza Dorrego</div>
+        <div class="block-desc">Uber o Cabify a San Telmo (no caminar por esa ruta — pasa por Constitución). La feria de antigüedades sobre la <strong>Calle Defensa</strong> funciona toda la tarde del domingo. Después, una parada en la <strong>Plaza Dorrego</strong> para el tango callejero espontáneo — acá está lo auténtico. Los bailarines actúan a la gorra; si tienen ganas, se suman.</div>
+        <div><span class="tag tag-tango">Tango callejero</span><span class="tag tag-culture">Feria</span></div>
+      </div>
+    </div>
+    <div class="block">
+      <div class="block-time">Noche</div>
+      <div class="block-body">
+        <div class="block-name">Cena: Sacro</div>
+        <div class="block-desc"><strong>Sacro</strong> (Palermo Hollywood) es probablemente el mejor restaurante vegano gourmet de Buenos Aires. Empanadas de carbón activado, gnudi de ricotta de almendra, bao de jackfruit. Conviene reservar con anticipación — se llena incluso en julio.</div>
+        <div><span class="tag tag-food">Vegano · Gourmet</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ DÍA 2 ═══════════════ -->
+<div id="day2" class="tab-content">
+  <div class="day-header">
+    <div class="day-num">Día 2 · Lunes</div>
+    <div class="day-title">MALBA &amp; Jardín Botánico</div>
+  </div>
+  <div class="timeline">
+    <div class="block">
+      <div class="block-time">Mañana</div>
+      <div class="block-body">
+        <div class="block-name">MALBA — Museo de Arte Latinoamericano</div>
+        <div class="block-desc">Uno de los grandes museos de arte de América. Frida Kahlo, Diego Rivera, Xul Solar, Lidy Prati — la colección permanente sola vale el viaje. Revisar <strong>malba.org.ar</strong> para las exposiciones especiales de julio antes de llegar. Está en Palermo Chico — caminable desde la mayoría de los Airbnbs del barrio.</div>
+        <div><span class="tag tag-culture">Museo</span><span class="tag tag-culture">Arte Latinoamericano</span></div>
+      </div>
+    </div>
+    <div class="block">
+      <div class="block-time">Mediodía</div>
+      <div class="block-body">
+        <div class="block-name">Almuerzo: Jerome Palermo Soho</div>
+        <div class="block-desc">Cocina sustentable y plant-forward en Palermo Soho. Ingredientes locales, menú de influencia global, buen ambiente para comer entre museos.</div>
+        <div><span class="tag tag-food">Opciones veganas</span></div>
+      </div>
+    </div>
+    <div class="block">
+      <div class="block-time">Tarde</div>
+      <div class="block-body">
+        <div class="block-name">Jardín Botánico Carlos Thays</div>
+        <div class="block-desc">Entrada gratuita. Siete hectáreas de jardín botánico curado, una hermosa colección de esculturas, y la famosa colonia de gatos callejeros que vive ahí. En invierno, los senderos están vacíos y los árboles pelados — tiene algo de romántico. En Palermo, caminando desde el MALBA.</div>
+        <div><span class="tag tag-park">Gratis · Palermo</span></div>
+      </div>
+    </div>
+    <div class="block">
+      <div class="block-time">Noche</div>
+      <div class="block-body">
+        <div class="block-name">Milonga en el Salón Canning</div>
+        <div class="block-desc">Los lunes en el Salón Canning (Palermo) son una institución porteña — una de las milongas tradicionales más respetadas de la ciudad. Hay código de vestimenta: elegante. Llegar cerca de las 22 h; la pista se llena pasada la medianoche. Clase de tango alrededor de las 20 h si quieren calentar antes.</div>
+        <div><span class="tag tag-tango">Milonga · Tradicional</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ DÍA 3 ═══════════════ -->
+<div id="day3" class="tab-content">
+  <div class="day-header">
+    <div class="day-num">Día 3 · Martes</div>
+    <div class="day-title">El Ateneo &amp; Recoleta</div>
+  </div>
+  <div class="timeline">
+    <div class="block">
+      <div class="block-time">Mañana</div>
+      <div class="block-body">
+        <div class="block-name">El Ateneo Grand Splendid</div>
+        <div class="block-desc">La librería más famosa del mundo, en un teatro de 1919 reconvertido. El escenario es ahora un café; se navegan libros desde los palcos del teatro. Nombrada entre las librerías más bellas del planeta todos los años. Llegar temprano para evitar grupos de turistas. Tienen mucho en español — si leen, sumar tiempo (y peso de equipaje).</div>
+        <div><span class="tag tag-books">Libros · Icónico</span></div>
+      </div>
+    </div>
+    <div class="block">
+      <div class="block-time">Mediodía</div>
+      <div class="block-body">
+        <div class="block-name">Cementerio de la Recoleta</div>
+        <div class="block-desc">Gratis y extraordinario. Más de 4.700 bóvedas, arquitectura Art Déco y neoclásica imponente, la tumba de Evita, y la grandiosidad sombría de la aristocracia argentina. Reservar al menos 90 minutos. Llevar ropa abrigada — julio puede ser frío y ventoso ahí.</div>
+        <div><span class="tag tag-culture">Gratis · Arquitectura</span></div>
+      </div>
+    </div>
+    <div class="block">
+      <div class="block-time">Tarde</div>
+      <div class="block-body">
+        <div class="block-name">Libros del Pasaje (Palermo)</div>
+        <div class="block-desc">De vuelta en Palermo: esta librería-café de techos abovedados y escaleras infinitas organiza charlas literarias, presentaciones de libros y lecturas durante la semana. Revisar su agenda en línea para eventos del martes a la noche. Bar en el fondo, rincones para sentarse y leer en todos lados.</div>
+        <div><span class="tag tag-books">Libros · Eventos</span><span class="tag tag-culture">Espacio Cultural</span></div>
+      </div>
+    </div>
+    <div class="block">
+      <div class="block-time">Noche</div>
+      <div class="block-body">
+        <div class="block-name">Cena + La Catedral Milonga</div>
+        <div class="block-desc">Cena en <strong>La Reverde</strong> (parrilla vegana — choripán de seitán, asado de hongos, milanesa plant-based). Después, La Catedral en Almagro — la legendaria milonga alternativa en un galpón reconvertido. Los martes tienen una energía underground y bohemia muy distinta al Salón Canning. Ir y volver en taxi.</div>
+        <div><span class="tag tag-food">Parrilla Vegana</span><span class="tag tag-tango">Milonga · Bohemia</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ DÍA 4 ═══════════════ -->
+<div id="day4" class="tab-content">
+  <div class="day-header">
+    <div class="day-num">Día 4 · Miércoles</div>
+    <div class="day-title">Palermo profundo</div>
+  </div>
+  <div class="timeline">
+    <div class="block">
+      <div class="block-time">Mañana</div>
+      <div class="block-body">
+        <div class="block-name">Caminata de Arte Urbano — Palermo Soho</div>
+        <div class="block-desc">Las calles adoquinadas de Palermo Soho son una galería al aire libre. Las cuadras de <strong>Thames, Gorriti, El Salvador y Armenia</strong> están cargadas de murales — políticos, surrealistas, hermosos. Recorrerlo a pie sin ruta fija. Buscar el pasaje de Uriarte 1492 — un corredor de murales muy conocido.</div>
+        <div><span class="tag tag-culture">Arte Urbano</span><span class="tag tag-park">Palermo</span></div>
+      </div>
+    </div>
+    <div class="block">
+      <div class="block-time">Mediodía</div>
+      <div class="block-body">
+        <div class="block-name">Dain Usina Cultural</div>
+        <div class="block-desc">Una casona de los años 40 en Palermo convertida en librería, centro cultural, café y patio. Exposiciones regulares, conciertos y eventos literarios. Uno de los espacios más atmosféricos del barrio. Almorzar en su café.</div>
+        <div><span class="tag tag-books">Libros</span><span class="tag tag-culture">Centro Cultural</span><span class="tag tag-food">Café</span></div>
+      </div>
+    </div>
+    <div class="block">
+      <div class="block-time">Tarde</div>
+      <div class="block-body">
+        <div class="block-name">Rosedal + Bosques de Palermo</div>
+        <div class="block-desc">El Rosedal tiene 12.000 rosales — en julio están pelados, pero la geometría del parque es impresionante y el lago es sereno. Caminar por los Bosques (el parque más antiguo, abierto desde 1874) para una tarde de invierno genuina. Llevar un café de algún lado y simplemente caminar.</div>
+        <div><span class="tag tag-park">Parques · Gratis</span></div>
+      </div>
+    </div>
+    <div class="block">
+      <div class="block-time">Noche</div>
+      <div class="block-body">
+        <div class="block-name">Cena + La Viruta Milonga</div>
+        <div class="block-desc">Cena en <strong>La Huella Vegana</strong> (Palermo Hollywood) con pastries veganos, tablas de brunch y comida de confort. Después, La Viruta en el sótano del Centro Cultural Armenia (Palermo) — la milonga más enérgica de la ciudad, mezcla de tango, milonga y salsa según la noche. Miércoles a domingos; clases desde las 19-20 h antes del baile.</div>
+        <div><span class="tag tag-food">Vegano</span><span class="tag tag-tango">Milonga · Alta Energía</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ DÍA 5 ═══════════════ -->
+<div id="day5" class="tab-content">
+  <div class="day-header">
+    <div class="day-num">Día 5 · Jueves</div>
+    <div class="day-title">Día de la Independencia 🇦🇷</div>
+    <div class="day-badge">9 de Julio</div>
+  </div>
+  <div class="tip-box">
+    🎉 <strong>El 9 de julio es el Día de la Independencia de Argentina</strong> — el feriado nacional más importante del país. La Av. 9 de Julio tiene desfile militar y actos patrióticos durante todo el día. La ciudad está de fiesta. Importante: verificar los horarios de los museos con anticipación, ya que algunos cierran o tienen horarios reducidos en feriados nacionales.
+  </div>
+  <div class="timeline">
+    <div class="block">
+      <div class="block-time">Mañana</div>
+      <div class="block-body">
+        <div class="block-name">Desfile patriótico — Av. 9 de Julio</div>
+        <div class="block-desc">El desfile militar recorre la Avenida 9 de Julio — una de las avenidas más anchas del mundo. Llegar antes de las 10 h para tener buen lugar. La zona del Obelisco va a estar repleta de gente, pero la energía es extraordinaria. Cuidar muy bien las pertenencias — es zona de carteristas.</div>
+        <div><span class="tag tag-culture">Feriado Nacional</span><span class="tag tag-alert">⚠ Cuidar las pertenencias</span></div>
+      </div>
+    </div>
+    <div class="block">
+      <div class="block-time">Mediodía</div>
+      <div class="block-body">
+        <div class="block-name">Jardín Japonés</div>
+        <div class="block-desc">Un lugar de pausa perfecta — el Jardín Japonés en Palermo es genuinamente sereno, con senderos, puentes y un lago. En invierno se vuelve atmosférico y sin turistas. Su restaurante sirve platos vegetarianos (confirmar lo vegano específicamente).</div>
+        <div><span class="tag tag-park">Palermo · Entrada mínima</span></div>
+      </div>
+    </div>
+    <div class="block">
+      <div class="block-time">Tarde</div>
+      <div class="block-body">
+        <div class="block-name">Café-hopping por Palermo</div>
+        <div class="block-desc">El feriado hace que los barrios se llenen de locales. Recorrer Palermo Hollywood — visitar la librería <strong>Borges 1975</strong> (Palermo, lindo rincón de lectura con vista a la calle, jazz a la noche). El barrio tiene una energía especial y relajada en el feriado.</div>
+        <div><span class="tag tag-books">Libros</span><span class="tag tag-park">Palermo</span></div>
+      </div>
+    </div>
+    <div class="block">
+      <div class="block-time">Noche</div>
+      <div class="block-body">
+        <div class="block-name">Cena + La Viruta (Noche de la Independencia)</div>
+        <div class="block-desc">Cena en <strong>Casa Munay</strong> (Palermo Soho, sushi plant-based y pastas creativas). Después, La Viruta para una milonga de jueves — la energía del feriado va a llegar hasta la pista. Va a ser una noche memorable.</div>
+        <div><span class="tag tag-food">Vegano · Palermo</span><span class="tag tag-tango">Milonga</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ DÍA 6 ═══════════════ -->
+<div id="day6" class="tab-content">
+  <div class="day-header">
+    <div class="day-num">Día 6 · Viernes</div>
+    <div class="day-title">Teatro &amp; Bellas Artes</div>
+  </div>
+  <div class="tip-box">
+    🎭 <strong>Julio es temporada alta en el Teatro Colón</strong> — uno de los cinco mejores teatros de ópera del mundo, y la mejor sala acústica de las Américas. Revisar <strong>teatrocolon.org.ar</strong> para la cartelera de julio y reservar apenas confirmen fechas. Incluso entradas de pie son una experiencia imborrable. El edificio en sí vale la visita diurna si las funciones están agotadas.
+  </div>
+  <div class="timeline">
+    <div class="block">
+      <div class="block-time">Mañana</div>
+      <div class="block-body">
+        <div class="block-name">Museo Nacional de Bellas Artes</div>
+        <div class="block-desc">Entrada gratuita. El museo de arte nacional de Argentina en Recoleta — Rembrandt, El Greco, Rodin, más una enorme colección de maestros argentinos. Los turistas lo suelen pasar por alto. Más íntimo que el MALBA pero igual de impresionante.</div>
+        <div><span class="tag tag-culture">Museo · Gratis</span></div>
+      </div>
+    </div>
+    <div class="block">
+      <div class="block-time">Mediodía</div>
+      <div class="block-body">
+        <div class="block-name">Almuerzo + Corrientes</div>
+        <div class="block-desc">Al centro a almorzar y después caminar por Corrientes — la calle del teatro de Buenos Aires, "la calle que nunca duerme". Decenas de teatros, librerías (la Librería Gandhi está ahí) y los cafés literarios de la ciudad. Ver las marquesinas para elegir función de la noche.</div>
+        <div><span class="tag tag-culture">Teatro</span><span class="tag tag-books">Librería Gandhi</span></div>
+      </div>
+    </div>
+    <div class="block">
+      <div class="block-time">Tarde</div>
+      <div class="block-body">
+        <div class="block-name">Teatro Colón — Visita guiada o preparación</div>
+        <div class="block-desc">Si tienen entradas para la noche, una visita guiada al Teatro Colón (disponible la mayoría de los días, ~90 min) permite entender el edificio antes de la función. La sala principal, los bastidores y los palcos en herradura son asombrosos.</div>
+        <div><span class="tag tag-culture">Ópera · Arquitectura</span></div>
+      </div>
+    </div>
+    <div class="block">
+      <div class="block-time">Noche</div>
+      <div class="block-body">
+        <div class="block-name">Teatro Colón o Piazzolla Tango</div>
+        <div class="block-desc">Opción A: lo que esté en cartelera en el Colón — ballet, ópera, concierto. Opción B: si está agotado, <strong>Piazzolla Tango</strong> (Galería Güemes, centro) es un show teatral de tango de alto nivel con orquesta en vivo. Cena previa en <strong>Let It V</strong> (Palermo Hollywood, 100% plant-based).</div>
+        <div><span class="tag tag-culture">Teatro</span><span class="tag tag-tango">Show de Tango</span><span class="tag tag-food">Vegano</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ DÍA 7 ═══════════════ -->
+<div id="day7" class="tab-content">
+  <div class="day-header">
+    <div class="day-num">Día 7 · Sábado</div>
+    <div class="day-title">Última tarde porteña</div>
+  </div>
+  <div class="timeline">
+    <div class="block">
+      <div class="block-time">Mañana</div>
+      <div class="block-body">
+        <div class="block-name">Feria de la Plaza Cortázar</div>
+        <div class="block-desc">La <strong>Plaza Julio Cortázar</strong> (también llamada Plaza Serrano) en Palermo Soho tiene su feria artesanal los fines de semana. Joyería hecha a mano, cuero, cerámica, diseño local. Lleva el nombre del maestro argentino del realismo mágico — apropiado para nerds de los libros. Desayunar en algún café de la plaza.</div>
+        <div><span class="tag tag-culture">Feria · Palermo</span></div>
+      </div>
+    </div>
+    <div class="block">
+      <div class="block-time">Tarde</div>
+      <div class="block-body">
+        <div class="block-name">Eterna Cadencia + Libros Ref</div>
+        <div class="block-desc"><strong>Eterna Cadencia</strong> (Palermo) — una librería independiente legendaria con una de las mejores selecciones de ficción literaria de América Latina, más su propia editorial chica. Después, <strong>Libros Ref</strong> en Honduras — parece la biblioteca personal de alguien, con buena música y una selección muy pensada.</div>
+        <div><span class="tag tag-books">Libros · Independiente</span></div>
+      </div>
+    </div>
+    <div class="block">
+      <div class="block-time">Tarde</div>
+      <div class="block-body">
+        <div class="block-name">Última caminata por Palermo Hollywood</div>
+        <div class="block-desc">Caminar sin apuro por las calles cargadas de cafés de la zona. Parar donde se tenga ganas. Comprar algo que valga la pena. Dejar que la ciudad sea ella misma por una tarde, sin agenda.</div>
+        <div><span class="tag tag-park">Palermo</span></div>
+      </div>
+    </div>
+    <div class="block">
+      <div class="block-time">Noche</div>
+      <div class="block-body">
+        <div class="block-name">Cena de despedida + La Viruta</div>
+        <div class="block-desc">Cena final en <strong>Sacro</strong> otra vez o en el lugar que más les haya gustado durante la semana. Después, La Viruta para la milonga del sábado — la noche más grande de la semana, la pista llena, la música en su punto, y Buenos Aires despidiéndolos como corresponde.</div>
+        <div><span class="tag tag-food">Vegano · Despedida</span><span class="tag tag-tango">Milonga · Sábado</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ COMIDA ═══════════════ -->
+<div id="food" class="tab-content">
+  <div class="day-header">
+    <div class="day-num">Guía completa</div>
+    <div class="day-title">Veganos en Buenos Aires</div>
+  </div>
+  <div class="tip-box">
+    Buenos Aires se convirtió en una de las mejores ciudades de América Latina para comer plant-based — un cambio notable para la capital mundial de la carne. Todos los restaurantes listados acá son verificadamente veganos o plant-based, no simplemente "tienen opciones veganas."
+  </div>
+
+  <div class="section-title">⭐ Los mejores</div>
+  <div class="food-grid">
+    <div class="food-card">
+      <div class="food-card-name">Sacro</div>
+      <div class="food-card-zone">Palermo Hollywood</div>
+      <div class="food-card-desc">Alta cocina vegana. Empanadas de carbón activado, gnudi de ricotta de almendra, bao de jackfruit, cócteles creativos. Reservar con anticipación.</div>
+    </div>
+    <div class="food-card">
+      <div class="food-card-name">La Reverde</div>
+      <div class="food-card-zone">Palermo / Varios</div>
+      <div class="food-card-desc">La primera parrilla 100% vegana de Buenos Aires. Choripán de seitán, asado de hongos, milanesa plant-based. La experiencia argentina, reinventada.</div>
+    </div>
+    <div class="food-card">
+      <div class="food-card-name">Let It V</div>
+      <div class="food-card-zone">Palermo Hollywood</div>
+      <div class="food-card-desc">100% plant-based, muy bien valorado. Menú moderno, ideal para cenar antes de salir a bailar.</div>
+    </div>
+    <div class="food-card">
+      <div class="food-card-name">Casa Munay</div>
+      <div class="food-card-zone">Palermo Soho</div>
+      <div class="food-card-desc">Sushi plant-based, pastas creativas, espacio íntimo. Uno de los menús más originales del Soho.</div>
+    </div>
+  </div>
+
+  <div class="section-title">🌿 Cotidiano y casual</div>
+  <div class="food-grid">
+    <div class="food-card">
+      <div class="food-card-name">La Huella Vegana</div>
+      <div class="food-card-zone">Palermo Hollywood</div>
+      <div class="food-card-desc">Querido por sus pastries veganos, tortas y opciones de brunch. Ideal para mañanas tranquilas o un dulce a la tarde.</div>
+    </div>
+    <div class="food-card">
+      <div class="food-card-name">Hierbabuena</div>
+      <div class="food-card-zone">Palermo Hollywood</div>
+      <div class="food-card-desc">Pizzas veganas, hamburguesas, wraps. Casual y confiable — buen lugar del barrio para cualquier comida.</div>
+    </div>
+    <div class="food-card">
+      <div class="food-card-name">Jerome Palermo Soho</div>
+      <div class="food-card-zone">Palermo Soho</div>
+      <div class="food-card-desc">Enfoque en sustentabilidad y productos locales. Excelente para el almuerzo entre actividades. Menú vegano sólido.</div>
+    </div>
+  </div>
+
+  <div class="section-title">📱 Recursos útiles</div>
+  <div class="tip-box">
+    <strong>HappyCow</strong> (happycow.net) tiene un mapa vegano de Buenos Aires exhaustivo y actualizado — descargarlo antes de llegar para acceso sin internet. Siempre confirmar horarios actuales al reservar, ya que algunos restaurantes tienen cierres temporales en julio.
+  </div>
+</div>
+
+<!-- ═══════════════ TANGO ═══════════════ -->
+<div id="tango" class="tab-content">
+  <div class="day-header">
+    <div class="day-num">La guía esencial</div>
+    <div class="day-title">Tango en Buenos Aires</div>
+  </div>
+  <div class="tip-box">
+    Hay dos mundos del tango en Buenos Aires: la <strong>milonga</strong> (baile social donde todos bailan con todos, invitación por contacto visual llamado el <em>cabeceo</em>) y el <strong>show de tango</strong> (espectáculo teatral, alta producción). Los dos valen la experiencia. La milonga es lo auténtico.
+  </div>
+
+  <div class="section-title">🎶 Milongas — Baile Social</div>
+  <table class="tango-table">
+    <tr>
+      <th>Lugar</th><th>Barrio</th><th>Cuándo</th><th>Ambiente</th><th>Precio</th>
+    </tr>
+    <tr>
+      <td><span class="venue-name">La Viruta</span><br><small>Centro Cultural Armenia</small></td>
+      <td>Palermo</td>
+      <td>Mié a Dom<br>Clase 19 h, baile desde 21 h</td>
+      <td>Alta energía, público joven, mezcla de tango/milonga/salsa según la noche. La más accesible para visitantes.</td>
+      <td>~USD 10–15</td>
+    </tr>
+    <tr>
+      <td><span class="venue-name">Salón Canning</span></td>
+      <td>Palermo</td>
+      <td>Lun, Mié<br>Clase 20 h, baile desde 22 h</td>
+      <td>Tradicional, respetada, elegante. Una de las milongas más prestigiosas de BA. Código de vestimenta: formal-elegante.</td>
+      <td>~USD 15–20</td>
+    </tr>
+    <tr>
+      <td><span class="venue-name">La Catedral</span></td>
+      <td>Almagro</td>
+      <td>Mar a Dom<br>Comienzo tardío ~23 h</td>
+      <td>Alternativa, bohemia, galpón industrial. Más joven, experimental, energía anti-establishment.</td>
+      <td>~USD 8–12</td>
+    </tr>
+    <tr>
+      <td><span class="venue-name">Plaza Dorrego</span><br><small>Tango callejero · Gratis</small></td>
+      <td>San Telmo</td>
+      <td>Domingos, tarde</td>
+      <td>Tango espontáneo en la calle. Los bailarines actúan a la gorra; los turistas suelen ser invitados a sumarse. Pura alegría.</td>
+      <td>Gratis (propina)</td>
+    </tr>
+  </table>
+
+  <div class="section-title">🎭 Shows de Tango</div>
+  <table class="tango-table">
+    <tr>
+      <th>Show</th><th>Detalles</th>
+    </tr>
+    <tr>
+      <td><span class="venue-name">Piazzolla Tango</span><br><small>Galería Güemes, Microcentro</small></td>
+      <td>Show teatral de alto nivel con orquesta en vivo en una galería art nouveau preciosa. Lleva el nombre del gran Astor Piazzolla. Hay opción de cena (confirmar si es apta para veganos).</td>
+    </tr>
+    <tr>
+      <td><span class="venue-name">El Viejo Almacén</span><br><small>San Telmo</small></td>
+      <td>Uno de los espacios de tango más antiguos de BA. Show más tradicional, algo turístico pero genuinamente bueno. Saltear el paquete de cena salvo que confirmen opciones veganas.</td>
+    </tr>
+  </table>
+
+  <div class="section-title">💡 Etiqueta en la milonga</div>
+  <div class="tip-box">
+    <strong>El cabeceo:</strong> Se invita a bailar con contacto visual y un leve gesto de cabeza — nunca cruzando la pista y tocando al otro en el hombro. Una mirada esquivada significa no. Esto mantiene todo fluido y elegante.<br><br>
+    <strong>Vestimenta:</strong> La Catedral: casual-cool. La Viruta: cualquier cosa. Salón Canning: se espera elegancia.<br><br>
+    <strong>Tandas:</strong> La música suena en bloques de 3-4 canciones (<em>tanda</em>) — se baila toda la tanda con la misma pareja, luego se agradece. La <em>cortina</em> (interlude musical) señala el cambio.<br><br>
+    <strong>Zapatos:</strong> Los zapatos de tango son opcionales para visitantes pero hacen gran diferencia en la pista. Hay locales de alquiler cerca del Salón Canning.
+  </div>
+</div>
+
+<!-- ═══════════════ CONSEJOS ═══════════════ -->
+<div id="tips" class="tab-content">
+  <div class="day-header">
+    <div class="day-num">Antes de salir</div>
+    <div class="day-title">Guía práctica</div>
+  </div>
+
+  <div class="section-title">🔑 Lo esencial</div>
+  <div class="tips-grid">
+    <div class="tips-card">
+      <div class="tips-card-icon">🚗</div>
+      <div class="tips-card-title">Cómo moverse</div>
+      <div class="tips-card-text">Usar <strong>Uber o Cabify</strong> de noche — nunca tomar taxi de la calle. La tarjeta SUBE sirve en subte y colectivo durante el día. Palermo, Recoleta y el Microcentro se recorren bien a pie.</div>
+    </div>
+    <div class="tips-card">
+      <div class="tips-card-icon">💰</div>
+      <div class="tips-card-title">La moneda</div>
+      <div class="tips-card-text">La situación cambiaria en Argentina evoluciona rápido — verificar la tasa oficial vs. dólar blue antes de llegar. Cada vez más lugares aceptan tarjeta; algunos siguen prefiriendo efectivo. No cambiar en el aeropuerto.</div>
+    </div>
+    <div class="tips-card">
+      <div class="tips-card-icon">🌡</div>
+      <div class="tips-card-title">Clima en julio</div>
+      <div class="tips-card-text">5–15°C. Llevar buen abrigo, capas y calzado cálido. Raramente nieva pero puede ser frío y húmedo. La ventaja: mucho menos turismo y precios más bajos que en verano.</div>
+    </div>
+    <div class="tips-card">
+      <div class="tips-card-icon">📱</div>
+      <div class="tips-card-title">El celular</div>
+      <div class="tips-card-text"><strong>No usar el celular mientras se camina</strong> — especialmente en zonas turísticas. El motochorro (robo en moto al paso) es el incidente más común con turistas. Guardarlo en el bolsillo hasta estar sentados en algún lugar seguro.</div>
+    </div>
+    <div class="tips-card">
+      <div class="tips-card-icon">🎭</div>
+      <div class="tips-card-title">Reservar con anticipación</div>
+      <div class="tips-card-text">Reservar <strong>Teatro Colón</strong> y <strong>Sacro</strong> apenas tengan fechas confirmadas. Julio es temporada alta para el Colón — las buenas ubicaciones se agotan rápido.</div>
+    </div>
+    <div class="tips-card">
+      <div class="tips-card-icon">⚠️</div>
+      <div class="tips-card-title">Zonas a evitar</div>
+      <div class="tips-card-text">Mantenerse fuera de <strong>La Boca</strong> (fuera del Caminito), <strong>Constitución</strong> y los alrededores de la <strong>estación Once</strong>. En todas las zonas turísticas: mochila al frente, sin joyas, sin celular visible de noche.</div>
+    </div>
+    <div class="tips-card">
+      <div class="tips-card-icon">🇦🇷</div>
+      <div class="tips-card-title">Feriado del 9 de julio</div>
+      <div class="tips-card-text">Día de la Independencia — verificar horarios de museos con anticipación. Bancos y oficinas públicas cerrados. El desfile en la Av. 9 de Julio es impresionante pero muy concurrido; cuidar bien las pertenencias.</div>
+    </div>
+    <div class="tips-card">
+      <div class="tips-card-icon">📚</div>
+      <div class="tips-card-title">Para amantes de los libros</div>
+      <div class="tips-card-text">BA tiene más librerías per cápita que casi cualquier otra ciudad. Revisar la agenda de eventos en <strong>Libros del Pasaje</strong> y <strong>Dain Usina Cultural</strong> — hay eventos literarios regulares, a menudo gratuitos.</div>
+    </div>
+  </div>
+
+  <div class="section-title">🗺 Referencia rápida de barrios</div>
+  <div class="tip-box">
+    <strong>Palermo</strong> (su base) — seguro, caminable, lleno de restaurantes, librerías y milongas. Las sub-zonas: <em>Soho</em> (boutiques, adoquines, murales), <em>Hollywood</em> (cafés, productoras de cine, restaurantes modernos), <em>Chico</em> (embajadas, MALBA, casonas imponentes).<br><br>
+    <strong>Recoleta</strong> — elegante, seguro, cementerio + Bellas Artes + El Ateneo cerca. A 15 minutos a pie o taxi corto desde Palermo.<br><br>
+    <strong>San Telmo</strong> — histórico, bohemio, feria del domingo + tango en Plaza Dorrego. Ir en taxi directamente; no alejarse caminando al sur de la feria.<br><br>
+    <strong>Microcentro / Downtown</strong> — Teatro Colón, teatros de Corrientes, Florida. Bien de día; taxi de noche.
+  </div>
+</div>
+
+<script>
+function showTab(id, btn) {
+  document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+}
+</script>
+</body>
+</html>
